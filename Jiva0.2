@@ -1,0 +1,88 @@
+# ======================================Initialiazing the values
+# Max Values
+dead = False
+max_VALUE = {
+    'X_money': 10000,
+    'X_energy': 100,
+    'X_mood': 10,
+    'X_hunger': 75
+}
+
+# Initial Value
+initial_VALUE = {'ini_money_value_c': 100,
+                 'ini_hunger_value_c': 75,
+                 'ini_energy_value_c': 100,
+                 'ini_mood_value_c': 7,
+                 }
+# Current Value
+current_Value = {'money_value_c': initial_VALUE['ini_money_value_c'],
+                 'hunger_value_c': initial_VALUE['ini_hunger_value_c'],
+                 'energy_value_c': initial_VALUE['ini_energy_value_c'],
+                 'mood_value_c': initial_VALUE['ini_mood_value_c'],
+                 }
+
+print('Max Values---->   ', max_VALUE)
+print('initial Values---->   ', initial_VALUE)
+print('current Values---->   ', current_Value)
+
+
+# =======================================================Definded Functions
+def work():
+    if current_Value['hunger_value_c'] >= 10 \
+            and (current_Value['energy_value_c'] >= 20) \
+            and current_Value['mood_value_c'] >= 1 \
+            and not dead:
+
+        current_Value['energy_value_c'] -= 20
+        print('Working...')
+
+    pass
+
+
+def sleep():
+    if current_Value['hunger_value_c'] >= 40 \
+            and (current_Value['money_value_c'] >= 10) \
+            and current_Value['mood_value_c'] >= 1 \
+            and not dead:
+        print('Sleeping....')
+    pass
+
+
+def eat():
+    if current_Value['money_value_c'] >= 50 \
+            and (current_Value['mood_value_c'] >= 2) \
+            and not dead:
+        print ('Eating...')
+        pass
+
+
+# ========================The GUI part===================================
+from tkinter import *
+
+root = Tk()
+root.title(" Jiva Simulater V.0.1 ")
+root.geometry('600x500')
+
+top_frame = Frame(root, height='50', bg='light sea green')
+
+h_lbl = Label(top_frame, text="HUNGER ", bg='light sea green', fg='white', width=10).pack(side=LEFT)  # Hunger Label
+h_lbl_value = Label(top_frame, text=current_Value['hunger_value_c'], bg='white', fg='black', width=15).pack(
+    side=LEFT)  # Hunger value  Label
+
+e_lbl = Label(top_frame, text="ENERGY ", bg='light sea green', fg='white', width=10).pack(side=LEFT)
+e_lbl_value = Label(top_frame, text=current_Value['energy_value_c'], bg='white', fg='black', width=15).pack(side=LEFT)
+
+m_lbl = Label(top_frame, text="MONEY ", bg='light sea green', fg='white', width=10).pack(side=LEFT)
+m_lbl_value = Label(top_frame, text=('$ ' + str(current_Value['money_value_c'])), bg='white', fg='black',
+                    width=15).pack(side=LEFT)
+top_frame.pack(expand=NO, fill=X)
+
+# Side frame
+side_frame = Frame(root, height='100', bg='black')
+
+btn_eat = Button(side_frame, text='Eat', width=10, command=eat).pack(side=LEFT)
+btn_work = Button(side_frame, text='  Work ', width=10, command=work).pack(side=LEFT)
+btn_sleep = Button(side_frame, text='  Sleep  ', width=10, command=sleep).pack(side=LEFT)
+side_frame.pack(fill=X)
+root.mainloop()
+
